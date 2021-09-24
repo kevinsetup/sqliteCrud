@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/GABRIEL/Documents/AndroidProjects/sqliteCrud/app/src/main/res/layout/activity_list_product.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/GABRIEL/Documents/AndroidProjects/sqliteCrud/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/GABRIEL/Documents/AndroidProjects/sqliteCrud/app/src/main/res/layout/activity_product_item.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/kevin/AndroidStudioProjects/CrudSqlite/app/src/main/res/layout/activity_create_category.xml" value="0.5" />
         <entry key="..\:/Users/kevin/AndroidStudioProjects/CrudSqlite/app/src/main/res/layout/activity_list_product.xml" value="0.67" />
         <entry key="..\:/Users/kevin/AndroidStudioProjects/CrudSqlite/app/src/main/res/layout/activity_main.xml" value="0.33" />

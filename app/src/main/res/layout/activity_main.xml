@@ -38,6 +38,8 @@
             app:layout_constraintTop_toBottomOf="@id/tv_main_title">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_main_product_name"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -54,6 +56,8 @@
             app:layout_constraintTop_toBottomOf="@id/til_main_product_name">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_main_product_price"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -70,6 +74,8 @@
             app:layout_constraintTop_toBottomOf="@id/til_main_product_price">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_main_product_stock"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -85,6 +91,8 @@
             app:layout_constraintTop_toBottomOf="@id/til_main_product_stock">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_main_product_category"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -98,6 +106,7 @@
             >
 
             <Button
+                android:id="@+id/btn_main_add_product"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="4dp"
@@ -105,6 +114,8 @@
                 android:text="Añadir Producto" />
 
             <Button
+                android:id="@+id/btn_main_list_product"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="4dp"
