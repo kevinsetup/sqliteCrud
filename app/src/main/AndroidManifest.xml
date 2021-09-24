@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CrudSqlite">
         <activity
+            android:name=".ProductItemActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ListProductActivity"
+            android:exported="true" />
+        <activity
+            android:name=".CreateCategoryActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
