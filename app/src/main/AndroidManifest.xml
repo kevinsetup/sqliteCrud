@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CrudSqlite">
         <activity
+            android:name=".CategoryItemActivity"
+            android:exported="true" />
+        <activity
             android:name=".ProductItemActivity"
             android:exported="true" />
         <activity

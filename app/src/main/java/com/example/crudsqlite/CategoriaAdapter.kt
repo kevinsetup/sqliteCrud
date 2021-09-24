@@ -1,5 +1,6 @@
 package com.example.crudsqlite
 
+import android.view.LayoutInflater
 import android.view.View;
 import android.view.ViewGroup
 import android.widget.TextView
@@ -7,26 +8,37 @@ import androidx.recyclerview.widget.RecyclerView
 
 
 class CategoriaAdapter : RecyclerView.Adapter<CategoriaAdapter.CategoriaViewHolder>() {
+    private var catList : ArrayList<CategoriaModel> = ArrayList();
 
-    class CategoriaViewHolder(var view : View) : RecyclerView.CategoriaViewHolder(view){
-            private var name = view.findViewById<TextView>(R.id.rv_list_product);
-
-
-
-            fun bindView(cat : CategoriaModel){
-            name.text = cat.name;
-            }
-
-
+    fun addItems(items : ArrayList<CategoriaModel>){
+        this.catList = items;
+        notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriaViewHolder {
-        TODO("Not yet implemented")
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =  CategoriaViewHolder (
+        LayoutInflater.from(parent.context).inflate(R.layout.activity_category_item, parent, false)
+    )
 
     override fun onBindViewHolder(holder: CategoriaViewHolder, position: Int) {
-        TODO("Not yet implemented")
+    val cat = catList[position]
+        holder.bindView(cat);
     }
 
 
+
+    override fun getItemCount(): Int {
+      return  catList.size
+    }
+
+    class CategoriaViewHolder(var view : View) : RecyclerView.ViewHolder(view){
+        private var name = view.findViewById<TextView>(R.id.name);
+
+
+
+        fun bindView(cat : CategoriaModel){
+            name.text = cat.name;
+        }
+
+
+    }
 }
