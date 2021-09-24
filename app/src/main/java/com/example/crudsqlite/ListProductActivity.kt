@@ -7,12 +7,16 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ListProductActivity : AppCompatActivity() {
     lateinit var recycler: RecyclerView
+    var sqLiteHelper=SQLiteHelper(applicationContext)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_product)
         recycler = findViewById(R.id.rv_list_product)
         recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
+        val productList = sqLiteHelper.getAllProductos()
+
 
 
         var product1: ProductModel = ProductModel(1, "Leche Gloria", 2.5, 3, 5)
