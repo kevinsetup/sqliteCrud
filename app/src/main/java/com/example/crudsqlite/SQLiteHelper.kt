@@ -72,8 +72,8 @@ class SQLiteHelper(context: Context?) :
         var name: String
         if (cursor.moveToFirst()) {
             do {
-                id = cursor.getInt(cursor.getColumnIndex("id"))
-                name = cursor.getString(cursor.getColumnIndex("name"))
+                id = cursor.getInt(cursor.getColumnIndex(IDC))
+                name = cursor.getString(cursor.getColumnIndex(NAME))
                 val cat = CategoriaModel(id = id, name = name)
                 catList.add(cat);
             } while (cursor.moveToNext())

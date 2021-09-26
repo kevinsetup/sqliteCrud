@@ -5,8 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.Toast
+import android.widget.*
 import com.google.android.material.textfield.TextInputEditText
 
 class MainActivity : AppCompatActivity() {
@@ -15,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var stockText: TextInputEditText
     lateinit var addButton: Button
     lateinit var listButton: Button
+    lateinit var categoryDropdown: AutoCompleteTextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +26,13 @@ class MainActivity : AppCompatActivity() {
         stockText = findViewById(R.id.tiet_main_product_stock)
         addButton = findViewById(R.id.btn_main_add_product)
         listButton = findViewById(R.id.btn_main_list_product)
-
+        categoryDropdown = findViewById(R.id.actv_main_product_category)
+        val sqLiteHelper:SQLiteHelper= SQLiteHelper(applicationContext)
+        val items = sqLiteHelper.getAllCategorias().map { product->
+            product.name
+        }
+        val adapter = ArrayAdapter(applicationContext, R.layout.dropdown_product_item,items )
+        categoryDropdown.setAdapter(adapter)
         addButton.setOnClickListener {
             validateForm(
                 nameText.text.toString(),

@@ -15,9 +15,9 @@ class CreateCategoryActivity : AppCompatActivity() {
     private lateinit var btnAdd: Button
     private lateinit var btnView: Button
     private lateinit var edName: EditText
-    private lateinit var sqliteHelper: SQLiteHelper;
+    private lateinit var sqliteHelper: SQLiteHelper
     private lateinit var recyclerView: RecyclerView
-    private var adapter: CategoriaAdapter? = null;
+    private var adapter: CategoriaAdapter = CategoriaAdapter()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,7 +67,6 @@ class CreateCategoryActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.layoutManager = LinearLayoutManager(this);
-        adapter = CategoriaAdapter();
         recyclerView.adapter = adapter
 
     }

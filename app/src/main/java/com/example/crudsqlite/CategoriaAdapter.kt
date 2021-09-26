@@ -7,36 +7,31 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 
-
 class CategoriaAdapter : RecyclerView.Adapter<CategoriaAdapter.CategoriaViewHolder>() {
-    private var catList : ArrayList<CategoriaModel> = ArrayList();
+    private var catList: ArrayList<CategoriaModel> = ArrayList();
 
-    fun addItems(items : ArrayList<CategoriaModel>){
+    fun addItems(items: ArrayList<CategoriaModel>) {
         this.catList = items;
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =  CategoriaViewHolder (
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CategoriaViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.activity_category_item, parent, false)
     )
 
     override fun onBindViewHolder(holder: CategoriaViewHolder, position: Int) {
-    val cat = catList[position]
-        holder.bindView(cat);
+        holder.bindView(catList[position]);
     }
 
 
+    override fun getItemCount(): Int = catList.size
 
-    override fun getItemCount(): Int {
-      return  catList.size
-    }
 
-    class CategoriaViewHolder(var view : View) : RecyclerView.ViewHolder(view){
+    class CategoriaViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
         private var name = view.findViewById<TextView>(R.id.name);
 
 
-
-        fun bindView(cat : CategoriaModel){
+        fun bindView(cat: CategoriaModel) {
             name.text = cat.name;
         }
 
