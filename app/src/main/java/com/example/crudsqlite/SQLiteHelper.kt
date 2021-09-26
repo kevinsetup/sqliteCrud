@@ -80,6 +80,26 @@ class SQLiteHelper(context: Context?) :
         }
         return catList;
     }
+    fun updateCategoria(cat : CategoriaModel) : Int{
+        val db = this.writableDatabase;
+        val contentValues = ContentValues()
+        contentValues.put(ID,cat.id);
+        contentValues.put(NAME, cat.name)
+        val success = db.update(TB_Categoria,contentValues, "id = " + cat.id, null);
+        db.close();
+        return success;
+    }
+    fun deleteCategoria(id:Int): Int{
+        val db = this.writableDatabase;
+        val contentValue = ContentValues();
+        contentValue.put(ID,id)
+        val success = db.delete(TB_Categoria, "id = " + id, null)
+        db.close()
+        return success
+    }
+
+
+
 
     fun insertProducto(product: ProductModel): Long {
         val db = this.writableDatabase;
