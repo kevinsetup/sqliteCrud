@@ -9,24 +9,20 @@ import androidx.core.content.contentValuesOf
 import java.lang.Exception
 
 
-class SQLiteHelper(context: Context) :
+class SQLiteHelper(context: Context?) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
-        private const val DATABASE_VERSION = 1;
+        private const val DATABASE_VERSION = 2;
         private const val DATABASE_NAME = "ventas.db";
         private const val TB_Categoria = "categoria";
         private const val TB_Producto = "producto";
-
         private const val IDC = "idcategoria";
         private const val IDP = "idproducto";
         private const val NOMPROD = "nomprod";
         private const val PRICE = "price";
         private const val STOCK = "stock";
-
         private const val NAME = "name";
-
-
     }
 
 
@@ -34,15 +30,16 @@ class SQLiteHelper(context: Context) :
         val createTbCategoria =
             ("CREATE TABLE  $TB_Categoria( $IDC INTEGER PRIMARY KEY,$NAME TEXT )")
         val createTbProducto =
-            ("CREATE TABLE  $TB_Producto( $IDP INTEGER PRIMARY KEY,$NOMPROD TEXT, $PRICE REAL, $STOCK INTEGER )")
-        db?.execSQL(createTbCategoria);
+            ("CREATE TABLE  $TB_Producto( $IDP INTEGER PRIMARY KEY,$NOMPROD TEXT, $PRICE REAL, $STOCK INTEGER , $IDC INTEGER )")
+        db?.execSQL(createTbCategoria)
+
         db?.execSQL(createTbProducto)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         db!!.execSQL("DROP TABLE IF EXISTS $TB_Categoria")
         db!!.execSQL("DROP TABLE IF EXISTS $TB_Producto")
-        onCreate(db);
+        onCreate(db)
     }
 
     fun insertCategoria(cat: CategoriaModel): Long {
@@ -52,7 +49,7 @@ class SQLiteHelper(context: Context) :
         contentValues.put(NAME, cat.name);
         val success = db.insert(TB_Categoria, null, contentValues)
         db.close()
-        return success;
+        return success
 
 
     }
@@ -90,6 +87,8 @@ class SQLiteHelper(context: Context) :
         contentValues.put(NOMPROD, product.nomprod)
         contentValues.put(PRICE, product.precio)
         contentValues.put(STOCK, product.stock)
+        contentValues.put(IDC, product.idcategoria)
+
         val success = db.insert(TB_Producto, null, contentValues)
         db.close()
         return success
@@ -108,7 +107,6 @@ class SQLiteHelper(context: Context) :
             db.execSQL(selectQuery);
             return ArrayList();
         }
-
         if (cursor.moveToFirst()) {
             do {
                 productList.add(
@@ -121,14 +119,11 @@ class SQLiteHelper(context: Context) :
                         ),
                         cursor.getDouble(cursor.getColumnIndex(PRICE)),
                         cursor.getInt(cursor.getColumnIndex(STOCK)),
-                        cursor.getInt(cursor.getColumnIndex(IDC))
+                        cursor.getInt(cursor.getColumnIndex(IDC)),
                     )
                 )
             } while (cursor.moveToNext())
-
         }
-
-
         db.close()
         return productList
     }
