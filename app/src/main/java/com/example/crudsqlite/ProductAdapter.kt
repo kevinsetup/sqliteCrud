@@ -1,6 +1,7 @@
 package com.example.crudsqlite
 
 import android.content.ContentValues
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,27 +21,7 @@ class ProductAdapter(var scheduleList: ArrayList<ProductModel>) :
             .inflate(R.layout.activity_product_item, parent, false)
 
 
-        deleteButton.setOnClickListener {
-            Log.w(ContentValues.TAG, "INgeniero quevin")
-            MaterialAlertDialogBuilder(parent.context)
-                .setMessage(parent.resources.getString(R.string.delete_dialog))
-                .setNegativeButton(parent.resources.getString(R.string.decline)) { dialog, which ->
-                    // Respond to negative button press
-                }
-                .setPositiveButton(parent.resources.getString(R.string.accept)) { dialog, which ->
-                    SQLiteHelper(parent.context).deleteProducto(1)
-                    Toast.makeText(
-                        parent.context,
-                        "Successfully deleted element",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                .show()
-        }
 
-        editButton.setOnClickListener {
-
-        }
 
         return ProductViewHolder(view)
 
@@ -48,7 +29,32 @@ class ProductAdapter(var scheduleList: ArrayList<ProductModel>) :
 
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.assignData(scheduleList[position])
+        val productElement= scheduleList[position]
+        holder.assignData(productElement )
+
+        holder.deleteButton.setOnClickListener {
+            Log.w(ContentValues.TAG, "INgeniero quevin")
+            MaterialAlertDialogBuilder(holder.deleteButton.context)
+                .setMessage(holder.deleteButton.context.resources.getString(R.string.delete_dialog))
+                .setNegativeButton(holder.deleteButton.context.resources.getString(R.string.decline)) { dialog, which ->
+                    // Respond to negative button press
+                }
+                .setPositiveButton(holder.deleteButton.context.resources.getString(R.string.accept)) { dialog, which ->
+                    SQLiteHelper(holder.deleteButton.context).deleteProducto(productElement.idproducto)
+                    deleteItem(position)
+                    Toast.makeText(
+                        holder.deleteButton.context,
+                        "Successfully deleted element",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                .show()
+        }
+    }
+    fun deleteItem(position: Int){
+        scheduleList.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position,itemCount)
     }
 
     override fun getItemCount(): Int = scheduleList.size
@@ -62,6 +68,7 @@ class ProductAdapter(var scheduleList: ArrayList<ProductModel>) :
         var editButton: Button
 
 
+
         constructor(view: View) : super(view) {
             this.name = view.findViewById(R.id.tv_product_item_name)
             this.price = view.findViewById(R.id.tv_product_item_price)
@@ -69,6 +76,7 @@ class ProductAdapter(var scheduleList: ArrayList<ProductModel>) :
             this.nomcat = view.findViewById(R.id.tv_product_item_category_name)
             this.deleteButton = view.findViewById(R.id.btn_product_item_delete)
             this.editButton = view.findViewById(R.id.btn_product_item_edit)
+
         }
 
         fun assignData(productModel: ProductModel) {
@@ -76,6 +84,20 @@ class ProductAdapter(var scheduleList: ArrayList<ProductModel>) :
             this.price.text = productModel.precio.toString()
             this.stock.text = productModel.stock.toString()
             this.nomcat.text = productModel.nomcat
+
+
+            editButton.setOnClickListener {
+
+                val intent = Intent(editButton.context, CreateProductActivity::class.java)
+                intent.apply {
+                    putExtra("idproducto",productModel.idproducto)
+                    putExtra("nomprod", productModel.nomprod)
+                    putExtra("precio", productModel.precio)
+                    putExtra("stock", productModel.stock)
+
+                }
+                editButton.context.startActivity(intent)
+            }
 
         }
 

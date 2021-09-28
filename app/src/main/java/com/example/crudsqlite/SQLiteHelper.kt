@@ -4,8 +4,6 @@ import android.content.*;
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log
-import androidx.core.content.contentValuesOf
 import java.lang.Exception
 
 
@@ -126,6 +124,17 @@ class SQLiteHelper(context: Context?) :
         val success = db.delete(TB_Producto,"$IDP = $idproducto",null)
 
         return success
+    }
+    fun updateProducto(product: ProductModel): Int {
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(NOMPROD, product.nomprod)
+        contentValues.put(PRICE, product.precio)
+        contentValues.put(STOCK, product.stock)
+        contentValues.put(IDC, product.idcategoria)
+        val successCode = db.update(TB_Producto, contentValues, "$IDP = ${product.idproducto}", null)
+        db.close()
+        return successCode
     }
 
     fun getAllProductos(): ArrayList<ProductModel> {
