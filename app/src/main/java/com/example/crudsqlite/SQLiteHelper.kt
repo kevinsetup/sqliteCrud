@@ -120,6 +120,14 @@ class SQLiteHelper(context: Context?) :
         return success
     }
 
+    fun deleteProducto(idproducto:Int):Int{
+        val db = this.writableDatabase
+
+        val success = db.delete(TB_Producto,"$IDP = $idproducto",null)
+
+        return success
+    }
+
     fun getAllProductos(): ArrayList<ProductModel> {
         val db = this.readableDatabase
         val productList: ArrayList<ProductModel> = ArrayList();
