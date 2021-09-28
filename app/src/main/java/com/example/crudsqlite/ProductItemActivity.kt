@@ -15,20 +15,11 @@ class ProductItemActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_item)
+        Log.w(ContentValues.TAG,"INgeniero quevin")
 
         deleteButton = findViewById(R.id.btn_product_item_delete)
         deleteButton.setOnClickListener {
-            Log.w(ContentValues.TAG,"INgeniero quevin")
-            MaterialAlertDialogBuilder(this
-            )
-                .setMessage(resources.getString(R.string.delete_dialog))
-                .setNegativeButton(resources.getString(R.string.decline)) { dialog, which ->
-                    // Respond to negative button press
-                }
-                .setPositiveButton(resources.getString(R.string.accept)) { dialog, which ->
-                    // Respond to positive button press
-                }
-                .show()
+
         }
 
 

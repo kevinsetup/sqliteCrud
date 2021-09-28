@@ -12,7 +12,7 @@
         android:id="@+id/tv_list_product_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create Product"
+        android:text="List Product"
         android:textStyle="bold"
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"

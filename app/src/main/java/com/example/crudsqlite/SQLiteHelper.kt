@@ -30,13 +30,19 @@ class SQLiteHelper(context: Context?) :
         val createTbCategoria =
             ("CREATE TABLE  $TB_Categoria( $IDC INTEGER PRIMARY KEY,$NAME TEXT )")
         val createTbProducto =
-            ("CREATE TABLE  $TB_Producto( $IDP INTEGER PRIMARY KEY,$NOMPROD TEXT, $PRICE REAL, $STOCK INTEGER , $IDC INTEGER )")
+            ("CREATE TABLE  $TB_Producto( $IDP INTEGER PRIMARY KEY,$NOMPROD TEXT, $PRICE REAL, $STOCK INTEGER , $IDC INTEGER, FOREIGN KEY($IDC) REFERENCES $TB_Categoria($IDC) )")
         db?.execSQL(createTbCategoria)
 
         db?.execSQL(createTbProducto)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        db!!.execSQL("DROP TABLE IF EXISTS $TB_Categoria")
+        db!!.execSQL("DROP TABLE IF EXISTS $TB_Producto")
+        onCreate(db)
+    }
+
+    override fun onDowngrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         db!!.execSQL("DROP TABLE IF EXISTS $TB_Categoria")
         db!!.execSQL("DROP TABLE IF EXISTS $TB_Producto")
         onCreate(db)
@@ -83,7 +89,7 @@ class SQLiteHelper(context: Context?) :
     fun updateCategoria(cat : CategoriaModel) : Int{
         val db = this.writableDatabase;
         val contentValues = ContentValues()
-        contentValues.put(ID,cat.id);
+        contentValues.put(IDC,cat.id);
         contentValues.put(NAME, cat.name)
         val success = db.update(TB_Categoria,contentValues, "id = " + cat.id, null);
         db.close();
@@ -92,7 +98,7 @@ class SQLiteHelper(context: Context?) :
     fun deleteCategoria(id:Int): Int{
         val db = this.writableDatabase;
         val contentValue = ContentValues();
-        contentValue.put(ID,id)
+        contentValue.put(IDC,id)
         val success = db.delete(TB_Categoria, "id = " + id, null)
         db.close()
         return success
@@ -118,7 +124,7 @@ class SQLiteHelper(context: Context?) :
         val db = this.readableDatabase
         val productList: ArrayList<ProductModel> = ArrayList();
         val cursor: Cursor?
-        val selectQuery = "SELECT * FROM $TB_Producto";
+        val selectQuery = "SELECT * FROM $TB_Producto INNER JOIN $TB_Categoria on $TB_Producto.$IDC = $TB_Categoria.$IDC";
 
         try {
             cursor = db.rawQuery(selectQuery, null)
@@ -140,6 +146,7 @@ class SQLiteHelper(context: Context?) :
                         cursor.getDouble(cursor.getColumnIndex(PRICE)),
                         cursor.getInt(cursor.getColumnIndex(STOCK)),
                         cursor.getInt(cursor.getColumnIndex(IDC)),
+                        cursor.getString(cursor.getColumnIndex(NAME))
                     )
                 )
             } while (cursor.moveToNext())

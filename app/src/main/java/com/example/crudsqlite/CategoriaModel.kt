@@ -14,4 +14,8 @@ data class CategoriaModel(
         }
 
     }
+
+    override fun toString(): String {
+        return name
+    }
 };
